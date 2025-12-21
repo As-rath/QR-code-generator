@@ -1,5 +1,6 @@
 import qrcode
 from qrcode.constants import ERROR_CORRECT_H
+from GUI import *
 from PIL import Image, ImageDraw, ImageTk
 import tkinter as tk
 from tkinter import filedialog, messagebox
