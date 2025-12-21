@@ -97,21 +97,27 @@ root.geometry("420x420")
 root.resizable(False, False)
 
 #Data input
-tk.Label(root, text="Data/URL:").pack(pady = (20, 5))
-data_entry = tk.Entry(root, width = 50)
+data_frame = tk.Frame(root)
+data_frame.pack(pady = (20, 5))
+tk.Label(data_frame, text="Data/URL:").pack(pady = (20, 5))
+data_entry = tk.Entry(data_frame, width = 50)
 data_entry.pack()
 
 #Logo input
-tk.Label(root, text="Logo Image:").pack(pady = (20, 5))
-logo_entry = tk.Entry(root, width = 50)
+logo_frame = tk.Frame(root)
+logo_frame.pack(pady = (20, 5))
+tk.Label(logo_frame, text="Logo Image:").pack(pady = (20, 5))
+logo_entry = tk.Entry(logo_frame, width = 50)
 logo_entry.pack()
-tk.Button(root, text="Browse", command = browseFile).pack(side = tk.LEFT)
+tk.Button(logo_frame, text="Browse", command = browseFile).pack(pady = (10, 0), side = tk.LEFT)
 
 #Save location input
-tk.Label(root, text = "Save QR Code as: ").pack(pady = (20, 5))
-save_entry = tk.Entry(root, width = 50)
+save_frame = tk.Frame(root)
+save_frame.pack(pady = (20, 5))
+tk.Label(save_frame, text = "Save QR Code as: ").pack(pady = (10, 5))
+save_entry = tk.Entry(save_frame, width = 50)
 save_entry.pack()
-tk.Button(root, text = "Save As", command = browseSaveLocation).pack(side = tk.LEFT)
+tk.Button(save_frame, text = "Save As", command = browseSaveLocation).pack(pady = (10, 0), side = tk.LEFT, )
 
 #Generate Button
 tk.Button(root, text = "Generate QR Code", command = onGenerate , bg = "#000000", fg = "white", width = 20).pack(pady = 20)
