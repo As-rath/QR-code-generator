@@ -53,9 +53,9 @@ def generateQrCode(data, save_path, logo_path):
     img.paste(logo, logo_pos, logo)
     
     # Saving the image to a file
-    img.save(filename)
+    img.save(save_path)
 
-    print(f"QR code generated and saved as {filename}")
+    print(f"QR code generated and saved as {save_path}")
 
 def browseFile():
     path = filedialog.askopenfilename(
