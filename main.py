@@ -1,8 +1,11 @@
 import qrcode
 from qrcode.constants import ERROR_CORRECT_H
 from PIL import Image, ImageDraw
+import tkinter as tk
+from tkinter import filedialog, messagebox
 
-def generate_qr_code(data, filename):
+
+def generateQrCode(data, save_path, logo_path):
     # Creating a QR code instance 
     qr = qrcode.QRCode(
             version = 1, 
@@ -19,7 +22,6 @@ def generate_qr_code(data, filename):
     img = qr.make_image(fill_color = "black", back_color = "white").convert("RGBA")
 
     #Opening the logo image
-    logo_path = input("Enter the path to the logo image (e.g., logo.webp): ")
     logo = Image.open(logo_path).convert("RGBA")
 
     #Resizing the logo
@@ -55,8 +57,63 @@ def generate_qr_code(data, filename):
 
     print(f"QR code generated and saved as {filename}")
 
+def browseFile():
+    path = filedialog.askopenfilename(
+        title = "Select Logo Image",
+        filetypes = [("Image Files", "*.png;*.jpg;*.jpeg;*.webp;*.bmp;*.gif"), ("All Files", "*.*")]
+    )
+    logo_entry.delete(0, tk.END)
+    logo_entry.insert(0, path)
 
-if __name__ == "__main__":
-    data = "https://www.google.com"
-    filename = "google_qr.png"
-    generate_qr_code(data, filename)
+def browseSaveLocation():
+    path = filedialog.asksaveasfilename(
+        defaultextension = ".png",
+        filetypes = [("PNG Image", "*.png"), ("All Files", "*.*")],
+        title = "Save QR Code As"
+    )
+    save_entry.delete(0, tk.END)
+    save_entry.insert(0, path)
+
+def onGenerate():
+    data = data_entry.get()
+    logo_path = logo_entry.get()
+    save_path = save_entry.get()
+
+    if not data or not logo_path or not save_path:
+        messagebox.showerror("Error", "Please fill in all fields.")
+        return
+    
+    try:
+        generateQrCode(data, save_path, logo_path)
+        messagebox.showinfo("Success", f"QR code generated and saved as {save_path}")
+    except Exception as e:
+        messagebox.showerror("Error", f"Failed to generate QR code: {e}")
+
+
+#Creating the main window (GUI)
+root = tk.Tk()
+root.title("QR Code Generator")
+root.geometry("420x420")
+root.resizable(False, False)
+
+#Data input
+tk.Label(root, text="Data/URL:").pack(pady = (20, 5))
+data_entry = tk.Entry(root, width = 50)
+data_entry.pack()
+
+#Logo input
+tk.Label(root, text="Logo Image:").pack(pady = (20, 5))
+logo_entry = tk.Entry(root, width = 50)
+logo_entry.pack()
+tk.Button(root, text="Browse", command = browseFile).pack(side = tk.LEFT)
+
+#Save location input
+tk.Label(root, text = "Save QR Code as: ").pack(pady = (20, 5))
+save_entry = tk.Entry(root, width = 50)
+save_entry.pack()
+tk.Button(root, text = "Save As", command = browseSaveLocation).pack(side = tk.LEFT)
+
+#Generate Button
+tk.Button(root, text = "Generate QR Code", command = onGenerate , bg = "#000000", fg = "white", width = 20).pack(pady = 20)
+
+root.mainloop()
