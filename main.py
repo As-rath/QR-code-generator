@@ -1,9 +1,7 @@
 import qrcode
 from qrcode.constants import ERROR_CORRECT_H
-from GUI import *
-from PIL import Image, ImageDraw, ImageTk
-import tkinter as tk
-from tkinter import filedialog, messagebox
+from PIL import Image, ImageDraw
+
 
 current_qr = None  
 
@@ -57,58 +55,3 @@ def generateQrCode(data, logo_path):
     # Saving the image to a file
     return img
 
-def browseFile():
-    path = filedialog.askopenfilename(
-        title = "Select Logo Image",
-        filetypes = [("Image Files", "*.png;*.jpg;*.jpeg;*.webp;*.bmp;*.gif"), ("All Files", "*.*")]
-    )
-    logo_entry.delete(0, tk.END)
-    logo_entry.insert(0, path)
-
-# def browseSaveLocation():
-#     path = filedialog.asksaveasfilename(
-#         defaultextension = ".png",
-#         filetypes = [("PNG Image", "*.png"), ("All Files", "*.*")],
-#         title = "Save QR Code As"
-#     )
-#     save_entry.delete(0, tk.END)
-#     save_entry.insert(0, path)
-
-def onGenerate():
-    print("Generating QR code...")
-    global current_qr
-
-    data = data_entry.get()
-    logo_path = logo_entry.get()
-
-    if not data or not logo_path:
-        messagebox.showerror("Error", "Please fill in all fields.")
-        return
-    
-    try:
-        img = generateQrCode(data, logo_path)
-        current_qr = img
-        preview = img.resize((200, 200), Image.LANCZOS)
-        tk_img = ImageTk.PhotoImage(preview)
-        preview_label.config(image = tk_img)
-        preview_label.image = tk_img  # Keep a reference to avoid garbage collection
-
-    except Exception as e:
-        messagebox.showerror("Error", f"Failed to generate QR code: {e}")
-
-
-def saveQrCode():
-
-    if current_qr is None:
-        messagebox.showerror("Error", "No QR code to save.")
-        return
-
-    save_path = filedialog.asksaveasfilename(
-        defaultextension= ".png", 
-        filetypes=[("PNG Image", "*.png"), ("All Files", "*.*")], 
-        title="Save QR Code As"
-        )
-    
-    if save_path:
-        current_qr.save(save_path)
-        messagebox.showinfo("Success", f"QR code saved as {save_path}")
