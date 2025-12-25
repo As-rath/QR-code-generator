@@ -1,4 +1,71 @@
 body{
     font-family: Arial, Helvetica, sans-serif;
-    background-color: grey;
+    background: linear-gradient(to right, lightblue, lightgreen);
+    text-align: center;
 }
+
+.container{
+    padding: 20px 20px 20px 20px;
+    margin: 20px 20px 20px 20px;
+    background: whitesmoke;
+    border: 2px solid gray ;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px black;
+}
+
+#heading{
+    background-color: azure;
+    padding: 20px 20px 20px 20px;
+    margin: 20px 20px 20px 20px;
+    border: 2px solid gray ;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px black;
+}
+
+.main {
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+    justify-content: center;
+    background-color: aliceblue;
+    padding: 50px 20px 50px 20px;
+    margin: 20px 20px 20px 20px;
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+
+#text{
+    margin: 10px 10px 10px 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px 10px 10px 10px;
+}
+
+#file-upload{
+    display: inline-block;
+    margin: 10px 10px 10px 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px 16px;
+    background-color: lightgray;    
+}
+
+#file-upload:hover {
+    background-color: rgb(23, 23, 23);
+    color: whitesmoke;
+}
+
+#generate-button {
+    background-color: rgb(38, 205, 60);
+    padding: 10px 20px 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#generate-button:hover {
+    background-color: rgb(12, 136, 20);
+    color: white;
+    box-shadow: 0px 0px 5px black;
+}
+

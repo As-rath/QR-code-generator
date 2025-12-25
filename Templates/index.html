@@ -4,31 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Generator</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h2>QR Code Generator</h2>
+        <h2 id="heading">QR CODE GENERATOR</h2>
 
-        <form method="post" enctype="multipart/form-data">
-            <label for="Text">Text / URL</label>
-            <input type="text" name="data" required><br><br>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="main">
+                <label for="Text">Text / URL</label>
+                <input type="text" name="data" id="text" required><br><br>
 
-            <label for="Logo">Logo Image</label>
-            <input type="file" name="logo" accept="image/*" required><br><br>
+                <label for="Logo">Logo Image</label>
+                <label id="file-upload">
+                    Choose Logo <input type="file" name="logo" accept="image/*" required hidden>
+                </label>
+                <br><br>
 
-            <button type="submit">Generator QR</button>
+                <button type="submit" id="generate-button">Generate QR</button>
+            </div>
         </form>
 
         {% if qr_image_url %} 
-        <div class="preview">
-            <h3>Preview</h3>
-            <img src="{{ qr_image_URL }}" alt="Qr code" width="250"><br><br>
+            <div class="preview">
+                <h3>Preview</h3>
+                <img src="{{ qr_image_URL }}" alt="Qr code" width="250"><br><br>
 
-            <a href="{{ qr_image_URL }}" download>
-                <button>DOWNLOAD QR</button>
-            </a>
-        </div>
+                <a href="{{ qr_image_URL }}" download>
+                    <button>DOWNLOAD QR</button>
+                </a>
+            </div>
         {% endif %}
     </div>
 </body>

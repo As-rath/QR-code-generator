@@ -12,9 +12,19 @@ os.makedirs(OUTPUT_DIR, exist_ok = True)
 def index():
     qr_image_URL = None
 
+    print("REQUEST METHOD:", request.method)
+
     if request.method == "POST":
+        print("POST RECIEVED.")
+
         data = request.form["data"]
         logo = request.files["logo"]
+
+        print("DATA:", data)
+        print("LOGO:", logo)
+
+        if not data or not logo:
+            print("MISSING DATA OR LOGO.")
 
         #Save Uploaded Logo
         logo_filename = f"{uuid.uuid4()}_{logo.filename}"
@@ -22,7 +32,13 @@ def index():
         logo.save(logo_path)
 
         #Generate QR Code
-        img = generateQrCode(data, logo_path)
+        try:
+            img = generateQrCode(data, logo_path)
+            print("QR CODE GENERATED.")
+
+        except Exception as e:
+            print("ERROR GENERATING QR CODE:", str(e))
+            return "QR generation failed."
 
         #Save QR Code Image
         qr_filename = f"{uuid.uuid4()}.png"
@@ -30,8 +46,7 @@ def index():
         img.save(output_path)
 
         #URL for browser 
-        qr_image_URL = f"/{output_path}"
-        
+        qr_image_URL = f"/{output_path}"        
     
     return render_template("index.html", qr_image_URL = qr_image_URL)
 
