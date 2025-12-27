@@ -14,11 +14,12 @@ body{
 }
 
 .container{
+    display: block;
+    align-items: center;
+    width: 90%;
     font-family: "BBH Bartle", sans-serif;
     font-weight: 400;
-    font-style: normal;
     padding: 20px 20px 20px 20px;
-    margin: 20px 20px 20px 20px;
     background: rgb(39, 39, 39, 0.7);
     border: 2px solid rgb(39, 39, 39) ;
     border-radius: 10px;
@@ -53,20 +54,22 @@ body{
 }
 
 #text{
+    width: 80%;
+    height: 50px;
+    resize: none;
+    font-size: 16px;
     margin: 10px 10px -10px 10px;
     font-style: italic;
     border: 1px solid gray;
     border-radius: 5px;
+    box-sizing: border-box;
     padding: 10px 20px 10px 20px;
-    width: 80%;
 }
 
 .logobutton{
     display: flex;
     justify-content: flex-end;
-    align-items: center;
-    flex-direction: row;
-    padding-right: 40px;
+    padding-right: 65px;
 }
 
 #file-upload{
