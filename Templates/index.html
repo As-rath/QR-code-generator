@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Spinnaker&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
 </head>
 <body>
     <video autoplay muted loop playsinline class="bg-video">
@@ -17,9 +18,9 @@
     <div class="container">
         <h2 id="heading">QR CODE GENERATOR</h2>
 
-        <form method="POST" enctype="multipart/form-data">
+        <form id="qrForm" enctype="multipart/form-data">
             <div class="main">
-                <textarea name="text" id="text" placeholder="Enter your Text/URL" required fixed></textarea><br><br>
+                <textarea name="data" id="text" placeholder="Enter your Text/URL" required fixed></textarea><br><br>
                 <div class="logobutton">
                     <label id="file-upload">
                         Choose Logo <input type="file" name="logo" accept="image/*" required hidden>
@@ -27,7 +28,7 @@
                 </div>
                 <br><br>
 
-                <button type="submit" id="generate-button">Generate QR</button>
+                <button type="button" id="generate-button" onclick="handleGenerate()">Generate QR</button>
             </div>
         </form>
 
@@ -41,6 +42,21 @@
                 </a>
             </div>
         {% endif %}
+    </div>
+
+    <div id="previewModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">x</span>
+
+            <h3>QR CODE</h3>
+
+            <img id="qrPreview" alt="QR Preview">
+
+            <div class="modal-actions">
+                <a id="downloadBtn" download class="action-btn">Download</a>
+                <button onclick="shareQR()" class="action-btn secondary">Share</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
