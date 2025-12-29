@@ -2,7 +2,7 @@ function handleGenerate(){
     const form = document.querySelector("form");
     const formData = new FormData(form);
 
-    fetch("/generate", {
+    fetch("/api/generate", {
         method: "POST",
         body: formData
     })
